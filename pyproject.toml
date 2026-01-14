@@ -1,0 +1,31 @@
+[project]
+name = "action-test-pkg"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "florez", email = "florez@ethz.ch" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "commitizen>=4.11.3",
+]
+
+[project.scripts]
+action-test = "action_test:main"
+
+[build-system]
+requires = ["uv_build>=0.9.25,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "pep440"
+version_provider = "uv"
+update_changelog_on_bump = true
+major_version_zero = true
+
