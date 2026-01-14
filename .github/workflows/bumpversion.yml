@@ -1,25 +1,46 @@
-name: Bump version
+name: Bump version (PR)
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   bump-version:
-    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    name: "Bump version and create changelog with commitizen"
+
     steps:
-      - name: Check out
+      - name: Check out main
         uses: actions/checkout@v5
         with:
+          ref: main
           fetch-depth: 0
-          token: "${{ secrets.GITHUB_TOKEN }}"
-      - id: cz
-        name: Create bump and changelog
+
+      - name: Run Commitizen bump + changelog (no push)
+        id: cz
         uses: commitizen-tools/commitizen-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          push: false
+
+      - name: Create PR with bump + changelog
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: chore/bump-version
+          delete-branch: true
+          title: "bump: release ${{ steps.cz.outputs.version }}"
+          commit-message: "bump: release ${{ steps.cz.outputs.version }}"
+          body: |
+            Automated version bump and changelog update via Commitizen.
+          labels: |
+            automated
+            release
+
       - name: Print Version
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
