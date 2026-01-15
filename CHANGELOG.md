@@ -5,6 +5,13 @@ from conventional commits.
 All notable changes to this project will be documented here, following
 [Semantic Versioning](https://semver.org/).
 
+## [0.2.0](https://github.com/zrlf/action-test/compare/v0.1.0...v0.2.0) (2026-01-15)
+
+
+### Features
+
+* update changelog ([#9](https://github.com/zrlf/action-test/issues/9)) ([2fb9571](https://github.com/zrlf/action-test/commit/2fb957104b0c2faa9bc73ed1e55885b43981520f))
+
 ## 0.1.0 (2026-01-15)
 
 ### Features
