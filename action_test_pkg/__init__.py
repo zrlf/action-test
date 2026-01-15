@@ -8,3 +8,7 @@ def dummy(a: int) -> int:
 
 def new_func() -> str:
     return "hello"
+
+
+def another_func(x: str) -> str:
+    return x.upper()
